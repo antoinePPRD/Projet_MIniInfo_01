@@ -4,6 +4,23 @@
 #include "main.h"
 
 
+// calcul le nombre de ligne du fichier 
+int compterLignes(FILE *fichier) {
+    int car, NbLigne;
+
+    car = 0;
+    NbLigne = 1;
+
+    // Parcourir le fichier pour compter les lignes
+    while ((car = fgetc(fichier)) != EOF) {
+        if (car == '\n') {
+            ++NbLigne;
+        }
+    }
+
+    return NbLigne;
+}
+
 int main (){
 
     // Ouverture des fishier 
@@ -26,17 +43,8 @@ int main (){
     //}
 
     // calcul le nombre de ligne du fichier 
-    int car, NbLigne ;
-    car = 0 ;
-    NbLigne = 1;
-    
-    while (( car = fgetc(lifestyle)) != EOF){
-        printf("%c",car);
-        if (car == '\n'){
-            ++NbLigne;
-        }
-    }
-    printf("%d\n", NbLigne);
+    int nombreDeLignes = compterLignes(lifestyle);
+    printf("Nombre de lignes : %d\n", nombreDeLignes);
     
     fclose(lifestyle);
     fclose(patients);
