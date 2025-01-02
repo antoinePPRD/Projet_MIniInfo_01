@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include "main.h"
 
-#define TAILLE_MAX 1000
-
 // calcul le nombre de ligne du fichier 
 int compterLignes(FILE *fichier) {
     int car, NbLigne;
@@ -42,12 +40,11 @@ int main (){
             //fclose(patients);
     //}
     
-    char chaine[TAILLE_MAX] = "";
-     if (patients != NULL){
-        while (fgets(chaine, TAILLE_MAX, patients) != NULL){
-            printf("%c", chaine[2]); 
-        }
-        fclose(patients);
+    int score[3] = {0}; // Tableau des 3 meilleurs scores
+ 
+    if (patients != NULL){
+        fscanf(patients, "%d %d %d", &score[0], &score[1], &score[2]);
+        printf("Les meilleurs scores sont : %d, %d et %d", score[0], score[1], score[2]);
     }
  
     // calcul le nombre de ligne du fichier 
