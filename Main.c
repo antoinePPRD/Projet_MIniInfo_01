@@ -30,11 +30,12 @@ int main (){
     car = 0 ;
     NbLigne = 1;
     
-    while (( car = fgetc(lifestyle)) != EOF)
-        if (car == '\n')
-        printf("%c", car);
-        ++NbLigne;
-    
+    while (( car = fgetc(lifestyle)) != EOF){
+        printf("%c",car);
+        if (car == '\n'){
+            ++NbLigne;
+        }
+    }
     printf("%d\n", NbLigne);
     
     fclose(lifestyle);
