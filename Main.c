@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "main.h"
 
+#define TAILLE_MAX 1000
 
 // calcul le nombre de ligne du fichier 
 int compterLignes(FILE *fichier) {
@@ -32,7 +33,6 @@ int main (){
     
     // Test pour verifier que le fishier et bien lu 
     //int caractereActuel = 0;
-    
     //if (patients != NULL){
             //do{
                 //caractereActuel = fgetc(patients); 
@@ -41,11 +41,20 @@ int main (){
  
             //fclose(patients);
     //}
-
-    // calcul le nombre de ligne du fichier 
-    int nombreDeLignes = compterLignes(lifestyle);
-    printf("Nombre de lignes : %d\n", nombreDeLignes);
     
+    char chaine[TAILLE_MAX] = "";
+     if (patients != NULL){
+        while (fgets(chaine, TAILLE_MAX, patients) != NULL){
+            printf("%s", patients); 
+        }
+        fclose(patients);
+    }
+ 
+    // calcul le nombre de ligne du fichier 
+    int nombreDeLignes_lifestyle = compterLignes(lifestyle);
+    printf("Nombre de lignes : %d\n", nombreDeLignes_lifestyle);
+    
+
     fclose(lifestyle);
     fclose(patients);
 
