@@ -5,10 +5,9 @@
 int main (){
 
     // Ouverture des fishier 
-
+    
     FILE* lifestyle = NULL;
     FILE* patients = NULL;
-    
     lifestyle = fopen("DATA/lifestyle.pengu", "r+");
     patients = fopen("DATA/patients.pengu", "r+");
     
@@ -23,7 +22,15 @@ int main (){
  
             fclose(patients);
     }
-    fclose(lifestyle);
 
+    // calcul le nombre de ligne du fichier 
+    int car, NbLigne;
+    NbLigne = 0;
+    while (( car = getchar(lifestyle)) != EOF)
+        if (c == '\n')
+        ++NbLigne;
+    printf("%d\n", NbLigne);
+    fclose(lifestyle);
+    
     return 0 ;
 }
