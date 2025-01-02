@@ -6,14 +6,16 @@ int main (){
     FILE* patients = NULL;
     lifestyle = fopen("DATA/lifestyle.pengu", "r+");
     patients = fopen("DATA/patients.pengu", "r+");
+    
+    // Test pour verifier que le fishier et bien lu 
     int caractereActuel = 0;
+    
     if (patients != NULL){
-            // Boucle de lecture des caractères un à un
             do
             {
-                caractereActuel = fgetc(patients); // On lit le caractère
-                printf("%c", caractereActuel); // On l'affiche
-            } while (caractereActuel != EOF); // On continue tant que fgetc n'a pas retourné EOF (fin de fichier)
+                caractereActuel = fgetc(patients); 
+                printf("%c", caractereActuel); 
+            } while (caractereActuel != EOF);
  
             fclose(patients);
     }
