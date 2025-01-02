@@ -7,13 +7,11 @@
 #define MAX_LINE 1024
 #define MAX_FIELDS 20
 
-// calcul le nombre de ligne du fichier 
 int compterLignes(FILE *fichier) {
     int car, NbLigne;
     car = 0;
     NbLigne = 1;
 
-    // Parcourir le fichier pour compter les lignes
     while ((car = fgetc(fichier)) != EOF) {
         if (car == '\n') {
             ++NbLigne;
