@@ -30,6 +30,7 @@ int main (){
     NbLigne = 1;
     while (( car = fgetc(lifestyle)) != EOF)
         if (car == '\n')
+        printf("%c", car)
         ++NbLigne;
     printf("%d\n", NbLigne);
     fclose(lifestyle);
