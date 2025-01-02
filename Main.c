@@ -40,7 +40,7 @@ int main (){
             //fclose(patients);
     //}
     
-    char score[3] = {0}; 
+    char score[3][100]; 
  
     if (patients != NULL){
         fscanf(patients, "%s %s %s", &score[0], &score[1], &score[2]);
