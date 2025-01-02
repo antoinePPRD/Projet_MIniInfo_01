@@ -1,9 +1,14 @@
+// Bibliotheque : 
 #include <stdio.h>
 #include <stdlib.h>
 
 int main (){
+
+    // Ouverture des fishier 
+
     FILE* lifestyle = NULL;
     FILE* patients = NULL;
+    
     lifestyle = fopen("DATA/lifestyle.pengu", "r+");
     patients = fopen("DATA/patients.pengu", "r+");
     
@@ -11,8 +16,7 @@ int main (){
     int caractereActuel = 0;
     
     if (patients != NULL){
-            do
-            {
+            do{
                 caractereActuel = fgetc(patients); 
                 printf("%c", caractereActuel); 
             } while (caractereActuel != EOF);
