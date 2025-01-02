@@ -44,7 +44,7 @@ int main (){
  
     if (patients != NULL){
         fscanf(patients, "%s %s %s", &score[0], &score[1], &score[2]);
-        printf("Les meilleurs scores sont : %d, %d et %d", score[0], score[1], score[2]);
+        printf("Les meilleurs scores sont : %s, %s et %s", score[0], score[1], score[2]);
     }
  
     // calcul le nombre de ligne du fichier 
