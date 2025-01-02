@@ -1,5 +1,5 @@
-typedef struct lifestyle lifestyle;
-struct lifestyle
+typedef struct stlifestyle stlifestyle;
+struct stlifestyle
 {
     int id;
     int physical_activity;
