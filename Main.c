@@ -11,7 +11,7 @@ int main (){
             // Boucle de lecture des caractères un à un
             do
             {
-                caractereActuel = fgetc(fichier); // On lit le caractère
+                caractereActuel = fgetc(patients); // On lit le caractère
                 printf("%c", caractereActuel); // On l'affiche
             } while (caractereActuel != EOF); // On continue tant que fgetc n'a pas retourné EOF (fin de fichier)
  
