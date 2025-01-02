@@ -26,7 +26,7 @@ typedef struct stlifestyle {
     float sleep_quality[10000];
 } stlifestyle;
 
-// Prototypes des fonctions
+// Fonctions
 int compterLignes(FILE *fichier);
 void chargerPatients(FILE *file, stpatients *patients);
 void chargerLifestyle(FILE *file, stlifestyle *lifestyle);
