@@ -6,6 +6,7 @@ int main (){
     FILE* patients = NULL;
     lifestyle = fopen("DATA/lifestyle.pengu", "r+");
     patients = fopen("DATA/patients.pengu", "r+");
+    int caractereActuel = 0;
     if (patients != NULL){
             // Boucle de lecture des caractères un à un
             do
