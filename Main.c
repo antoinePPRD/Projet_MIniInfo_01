@@ -42,7 +42,7 @@ void chargerPatients(FILE *file, stpatients *patients) {
         if (token != NULL) patients->age[index] = atoi(token);
 
         token = strtok(NULL, "$");
-        if (token != NULL) patients->gender[index] = token[0]; // Stocker le premier caractère
+        if (token != NULL) patients->gender[index] = token[0]; 
 
         token = strtok(NULL, "$");
         if (token != NULL) patients->weight[index] = atof(token);
@@ -64,6 +64,7 @@ void chargerPatients(FILE *file, stpatients *patients) {
 
         index++;
     }
+    rewind(file);
 }
 
 void chargerLifestyle(FILE *file, stlifestyle *lifestyle) {
@@ -91,6 +92,8 @@ void chargerLifestyle(FILE *file, stlifestyle *lifestyle) {
         if (token != NULL) lifestyle->sleep_quality[index] = atof(token);
 
         index++;
+        
+        rewind(file);
     }
 }
 
@@ -111,7 +114,6 @@ void afficherPatients(const stpatients *patients, int n) {
     }
 }
 
-// Afficher les données de la structure stlifestyle pour n lignes
 void afficherLifestyle(const stlifestyle *lifestyle, int n) {
     for (int i = 0; i < n; i++) {
         printf("Patient %d:\n", i + 1);
