@@ -6,8 +6,7 @@ int main (){
     FILE* patients = NULL;
     lifestyle = fopen("DATA/lifestyle.pengu", "r+");
     patients = fopen("DATA/patients.pengu", "r+");
-    if (patients != NULL)
-        {
+    if (patients != NULL){
             // Boucle de lecture des caractères un à un
             do
             {
@@ -15,7 +14,9 @@ int main (){
                 printf("%c", caractereActuel); // On l'affiche
             } while (caractereActuel != EOF); // On continue tant que fgetc n'a pas retourné EOF (fin de fichier)
  
-            fclose(fichier);
-        }
+            fclose(patients);
+    }
+    fclose(lifestyle);
 
+    return 0 ;
 }
