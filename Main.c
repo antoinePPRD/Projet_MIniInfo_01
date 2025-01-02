@@ -10,7 +10,6 @@
 // calcul le nombre de ligne du fichier 
 int compterLignes(FILE *fichier) {
     int car, NbLigne;
-
     car = 0;
     NbLigne = 1;
 
@@ -20,7 +19,7 @@ int compterLignes(FILE *fichier) {
             ++NbLigne;
         }
     }
-
+    rewind(fichier);
     return NbLigne;
 }
 
