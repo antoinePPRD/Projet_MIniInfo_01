@@ -1,6 +1,7 @@
 // Bibliotheque : 
 #include <stdio.h>
 #include <stdlib.h>
+#include <main.h>
 
 int main (){
 
@@ -12,16 +13,16 @@ int main (){
     patients = fopen("DATA/patients.pengu", "r+");
     
     // Test pour verifier que le fishier et bien lu 
-    int caractereActuel = 0;
+    //int caractereActuel = 0;
     
-    if (patients != NULL){
-            do{
-                caractereActuel = fgetc(patients); 
-                printf("%c", caractereActuel); 
-            } while (caractereActuel != EOF);
+    //if (patients != NULL){
+            //do{
+                //caractereActuel = fgetc(patients); 
+                //printf("%c", caractereActuel); 
+            //} while (caractereActuel != EOF);
  
-            fclose(patients);
-    }
+            //fclose(patients);
+    //}
 
     // calcul le nombre de ligne du fichier 
     int car, NbLigne ;
@@ -31,6 +32,11 @@ int main (){
         ++NbLigne;
     printf("%d\n", NbLigne);
     fclose(lifestyle);
+
+    lifestyle OBS ; 
+    OBS.id = 50 ; 
+    printf("%d\n", OBS.id);
+
     
     return 0 ;
 }
