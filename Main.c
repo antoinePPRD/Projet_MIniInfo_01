@@ -35,7 +35,7 @@ int main (){
     fclose(lifestyle);
     fclose(patients);
 
-    stlifestyle OBS [5000] ; 
+    stlifestyle OBS ; 
     OBS.id[0] = 50 ; 
     printf("%d\n", OBS.id[0]);
 
