@@ -23,6 +23,49 @@ int compterLignes(FILE *fichier) {
     return NbLigne;
 }
 
+void chargerPatients(FILE *file, stpatients *patients) {
+    char line[MAX_LINE];
+    int index = 0;
+
+    while (fgets(line, sizeof(line), file) != NULL) {
+        // Supprimer la nouvelle ligne
+        line[strcspn(line, "\n")] = '\0';
+
+        // Découper la ligne en champs
+        char *token = strtok(line, "$");
+        if (token != NULL) patients->patient_id[index] = atoi(token);
+
+        token = strtok(NULL, "$");
+        if (token != NULL) patients->record_id[index] = atoi(token);
+
+        token = strtok(NULL, "$");
+        if (token != NULL) patients->age[index] = atoi(token);
+
+        token = strtok(NULL, "$");
+        if (token != NULL) patients->gender[index] = token[0]; // Stocker le premier caractère
+
+        token = strtok(NULL, "$");
+        if (token != NULL) patients->weight[index] = atof(token);
+
+        token = strtok(NULL, "$");
+        if (token != NULL) patients->height[index] = atoi(token);
+
+        token = strtok(NULL, "$");
+        if (token != NULL) patients->systolic_bp[index] = atoi(token);
+
+        token = strtok(NULL, "$");
+        if (token != NULL) patients->diastolic_bp[index] = atoi(token);
+
+        token = strtok(NULL, "$");
+        if (token != NULL) patients->heart_rate[index] = atof(token);
+
+        token = strtok(NULL, "$");
+        if (token != NULL) patients->condition[index] = (strcmp(token, "True") == 0) ? 1 : 0;
+
+        index++;
+    }
+}
+
 void chargerLifestyle(FILE *file, stlifestyle *lifestyle) {
     char line[MAX_LINE];
     int index = 0;
@@ -48,6 +91,23 @@ void chargerLifestyle(FILE *file, stlifestyle *lifestyle) {
         if (token != NULL) lifestyle->sleep_quality[index] = atof(token);
 
         index++;
+    }
+}
+
+void afficherPatients(const stpatients *patients, int n) {
+    for (int i = 0; i < n; i++) {
+        printf("Patient %d:\n", i + 1);
+        printf("  Patient ID: %d\n", patients->patient_id[i]);
+        printf("  Record ID: %d\n", patients->record_id[i]);
+        printf("  Age: %d\n", patients->age[i]);
+        printf("  Gender: %c\n", patients->gender[i]);
+        printf("  Weight: %.2f\n", patients->weight[i]);
+        printf("  Height: %d\n", patients->height[i]);
+        printf("  Systolic BP: %d\n", patients->systolic_bp[i]);
+        printf("  Diastolic BP: %d\n", patients->diastolic_bp[i]);
+        printf("  Heart Rate: %.2f\n", patients->heart_rate[i]);
+        printf("  Condition: %s\n", patients->condition[i] ? "True" : "False");
+        printf("\n");
     }
 }
 
@@ -82,6 +142,13 @@ int main (){
 
     // Afficher les 5 premiers enregistrements pour vérifier
     afficherLifestyle(&OBS, 5);
+
+    // Initialiser la structure stpatients
+    stpatients patient_data;
+    chargerPatients(patients, &patient_data);
+
+    // Afficher les 5 premiers enregistrements pour vérifier
+    afficherPatients(&patient_data, 5);
 
     fclose(lifestyle);
     fclose(patients);
