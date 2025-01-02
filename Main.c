@@ -24,10 +24,10 @@ int main (){
     }
 
     // calcul le nombre de ligne du fichier 
-    int car, NbLigne;
+    int car, NbLigne ;
     NbLigne = 0;
     while (( car = fgetc(lifestyle)) != EOF)
-        if (c == '\n')
+        if (car == '\n')
         ++NbLigne;
     printf("%d\n", NbLigne);
     fclose(lifestyle);
