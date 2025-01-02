@@ -16,7 +16,7 @@ int compterLignes(FILE *fichier) {
 
 void chargerPatients(FILE *file, stpatients *patients) {
     char line[MAX_LINE];
-    int index = 0;
+    int index = 1;
     while (fgets(line, sizeof(line), file) != NULL) {
         line[strcspn(line, "\n")] = '\0';
         char *token = strtok(line, "$");
@@ -46,7 +46,7 @@ void chargerPatients(FILE *file, stpatients *patients) {
 
 void chargerLifestyle(FILE *file, stlifestyle *lifestyle) {
     char line[MAX_LINE];
-    int index = 0;
+    int index = 1;
 
     while (fgets(line, sizeof(line), file) != NULL) {
         // Supprimer la nouvelle ligne
