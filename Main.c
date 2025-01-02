@@ -92,9 +92,8 @@ void chargerLifestyle(FILE *file, stlifestyle *lifestyle) {
         if (token != NULL) lifestyle->sleep_quality[index] = atof(token);
 
         index++;
-        
-        rewind(file);
     }
+    rewind(file);
 }
 
 void afficherPatients(const stpatients *patients, int n) {
