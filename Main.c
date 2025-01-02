@@ -45,7 +45,7 @@ int main (){
     char chaine[TAILLE_MAX] = "";
      if (patients != NULL){
         while (fgets(chaine, TAILLE_MAX, patients) != NULL){
-            printf("%s", patients); 
+            printf("%s", chaine); 
         }
         fclose(patients);
     }
