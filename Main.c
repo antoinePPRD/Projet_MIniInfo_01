@@ -135,7 +135,7 @@ int main (){
     int nombreDeLignes_lifestyle = compterLignes(lifestyle);
     printf("Nombre de lignes : %d\n", nombreDeLignes_lifestyle);
     
-    // Initialiser la structure stlifestyle et charger les données
+    // Initialiser la structure stlifestyle 
     stlifestyle OBS;
     chargerLifestyle(lifestyle, &OBS);
 
