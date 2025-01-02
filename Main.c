@@ -25,7 +25,7 @@ int main (){
 
     // calcul le nombre de ligne du fichier 
     int car, NbLigne ;
-    NbLigne = 0;
+    NbLigne = 1;
     while (( car = fgetc(lifestyle)) != EOF)
         if (car == '\n')
         ++NbLigne;
