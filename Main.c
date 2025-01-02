@@ -43,7 +43,7 @@ int main (){
     int score[3] = {0}; // Tableau des 3 meilleurs scores
  
     if (patients != NULL){
-        fscanf(patients, "%d %d %d", &score[0], &score[1], &score[2]);
+        fscanf(patients, "%c %c %c", &score[0], &score[1], &score[2]);
         printf("Les meilleurs scores sont : %d, %d et %d", score[0], score[1], score[2]);
     }
  
