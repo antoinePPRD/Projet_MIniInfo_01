@@ -1,15 +1,11 @@
-typedef struct stlifestyle stlifestyle;
-struct stlifestyle
-{
-    int id[10000];
-    int physical_activity[10000];
-    float alcohol_consumption[10000];
-    float caffeine_consumption[10000];
-    float sleep_quality[10000];
-};
+#ifndef MAIN_H
+#define MAIN_H
 
-typedef struct stpatients stpatients;
-struct stpatients {
+#define MAX_LINE 1024
+#define MAX_FIELDS 20
+
+// Déclaration des structures
+typedef struct stpatients {
     int patient_id[10000];
     int record_id[10000];
     int age[10000];
@@ -19,5 +15,22 @@ struct stpatients {
     int systolic_bp[10000];
     int diastolic_bp[10000];
     float heart_rate[10000];
-    int condition[10000]; 
-};
+    int condition[10000];
+} stpatients;
+
+typedef struct stlifestyle {
+    int id[10000];
+    int physical_activity[10000];
+    float alcohol_consumption[10000];
+    float caffeine_consumption[10000];
+    float sleep_quality[10000];
+} stlifestyle;
+
+// Prototypes des fonctions
+int compterLignes(FILE *fichier);
+void chargerPatients(FILE *file, stpatients *patients);
+void chargerLifestyle(FILE *file, stlifestyle *lifestyle);
+void afficherPatients(const stpatients *patients, int n);
+void afficherLifestyle(const stlifestyle *lifestyle, int n);
+
+#endif
