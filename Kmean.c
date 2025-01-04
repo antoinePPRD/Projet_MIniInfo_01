@@ -58,7 +58,8 @@ int main() {
                 conteur_cluster2++;
             }
         }
-
+        printf("Iteration %d: Somme Cluster 1 = %f, Moyenne Cluster 1 = %f\n", iteration, Somme_cluster1, Moyen_cluster1_1);
+        printf("Iteration %d: Somme Cluster 2 = %f, Moyenne Cluster 2 = %f\n", iteration, Somme_cluster2, Moyen_cluster2_1);
         Moyen_cluster1_0 = Moyen_cluster1_1;
         Moyen_cluster1_1 = Somme_cluster1 / conteur_cluster1;
         cluster1 = Moyen_cluster1_1;
