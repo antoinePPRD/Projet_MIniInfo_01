@@ -40,7 +40,7 @@ int main() {
     int max_iterations = 100;
     int iteration = 0;
 
-    while (iteration < max_iterations && ((fabs(Moyen_cluster1_1 - Moyen_cluster1_0) > 0.01) || (fabs(Moyen_cluster2_1 - Moyen_cluster2_0) > 0.01))) {
+    while (iteration < max_iterations && ((fabs(Moyen_cluster1_1 - Moyen_cluster1_0) > 0.5) || (fabs(Moyen_cluster2_1 - Moyen_cluster2_0) > 0.5))) {
         
         // Réinitialiser les sommes et les compteurs
         Somme_cluster1 = Somme_cluster2 = 0;
