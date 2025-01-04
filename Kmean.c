@@ -14,9 +14,6 @@ int CalculeDistanceCluster(float cluster, float data){
     return Disance;
 }
 
-float CalculMoyen(){
-
-}
 
 int main(){
     // Ouverture des fishier 
