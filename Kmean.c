@@ -1,41 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <time.h> // Ajout pour l'initialisation aléatoire
+#include <time.h>
 #include "main.h"
 
 int CalculeDistanceCluster(float cluster, float data) {
     return fabs(cluster - data);
 }
 
-int main() {
-    // Initialiser le générateur aléatoire avec l'heure actuelle
-    srand(time(NULL));
-
-    // Ouverture des fichiers
-    FILE *lifestyle = fopen("DATA/lifestyle.pengu", "r");
-    FILE *patients = fopen("DATA/patients.pengu", "r");
-
-    // Calcul du nombre de lignes
-    int NombreDeLignes_lifestyle = compterLignes(lifestyle);
-    int NombreDeLignes_patients = compterLignes(patients);
-
-    // Initialisation des structures
-    stlifestyle lifestyle_data;
-    chargerLifestyle(lifestyle, &lifestyle_data);
-    fclose(lifestyle);
-
-    stpatients patient_data;
-    chargerPatients(patients, &patient_data);
-    fclose(patients);
-
-    // Initialisation des clusters
+void calculerClusters(float *data, int *ids, int n, const char *attribut) {
     int r1, r2;
-    r1 = rand() % NombreDeLignes_lifestyle;
-    r2 = rand() % NombreDeLignes_lifestyle;
-    float cluster1 = lifestyle_data.physical_activity[r1];
-    float cluster2 = lifestyle_data.physical_activity[r2];
-    printf("Initialisation : Cluster 1 = %f (Index %d), Cluster 2 = %f (Index %d)\n",cluster1, r1, cluster2, r2);
+    do {
+        r1 = rand() % n;
+        r2 = rand() % n;
+    } while (r1 == r2);
+
+    float cluster1 = data[r1];
+    float cluster2 = data[r2];
+
+    printf("Initialisation (%s) : Cluster 1 = %f (Index %d), Cluster 2 = %f (Index %d)\n",
+           attribut, cluster1, r1, cluster2, r2);
 
     float Moyen_cluster1_0 = 0, Moyen_cluster1_1 = cluster1;
     float Moyen_cluster2_0 = 0, Moyen_cluster2_1 = cluster2;
@@ -46,21 +30,22 @@ int main() {
     int max_iterations = 100;
     int iteration = 0;
 
-    while (iteration < max_iterations && ((fabs(Moyen_cluster1_1 - Moyen_cluster1_0) > 0.01) || (fabs(Moyen_cluster2_1 - Moyen_cluster2_0) > 0.01))) {
+    while (iteration < max_iterations && 
+           ((fabs(Moyen_cluster1_1 - Moyen_cluster1_0) > 0.01) || 
+            (fabs(Moyen_cluster2_1 - Moyen_cluster2_0) > 0.01))) {
         
-        // Réinitialiser les sommes et les compteurs
         Somme_cluster1 = Somme_cluster2 = 0;
         conteur_cluster1 = conteur_cluster2 = 0;
 
-        for (int k = 0; k < NombreDeLignes_lifestyle; k++) {
-            float Disance_cluster1 = CalculeDistanceCluster(cluster1, lifestyle_data.physical_activity[k]);
-            float Disance_cluster2 = CalculeDistanceCluster(cluster2, lifestyle_data.physical_activity[k]);
+        for (int i = 0; i < n; i++) {
+            float Disance_cluster1 = CalculeDistanceCluster(cluster1, data[i]);
+            float Disance_cluster2 = CalculeDistanceCluster(cluster2, data[i]);
 
             if (Disance_cluster1 < Disance_cluster2) {
-                Somme_cluster1 += lifestyle_data.physical_activity[k];
+                Somme_cluster1 += data[i];
                 conteur_cluster1++;
             } else {
-                Somme_cluster2 += lifestyle_data.physical_activity[k];
+                Somme_cluster2 += data[i];
                 conteur_cluster2++;
             }
         }
@@ -77,12 +62,34 @@ int main() {
             cluster2 = Moyen_cluster2_1;
         }
 
-        printf("Iteration %d: Cluster 1 = %f, Cluster 2 = %f\n", iteration, cluster1, cluster2);
+        printf("Iteration %d (%s): Cluster 1 = %f, Cluster 2 = %f\n", iteration, attribut, cluster1, cluster2);
         iteration++;
     }
 
-    printf("Final : Cluster 1 = %f, Nombre d'éléments = %d\n", cluster1, conteur_cluster1);
-    printf("Final : Cluster 2 = %f, Nombre d'éléments = %d\n", cluster2, conteur_cluster2);
+    printf("Final (%s): Cluster 1 = %f, Nombre d'éléments = %d\n", attribut, cluster1, conteur_cluster1);
+    printf("Final (%s): Cluster 2 = %f, Nombre d'éléments = %d\n", attribut, cluster2, conteur_cluster2);
+}
+
+int main() {
+    srand(time(NULL));
+
+    FILE *lifestyle = fopen("DATA/lifestyle.pengu", "r");
+
+    if (!lifestyle) {
+        perror("Erreur lors de l'ouverture du fichier lifestyle");
+        return 1;
+    }
+
+    int NombreDeLignes_lifestyle = compterLignes(lifestyle);
+    stlifestyle lifestyle_data;
+    chargerLifestyle(lifestyle, &lifestyle_data);
+    fclose(lifestyle);
+
+    // Calculer les clusters pour chaque attribut
+    calculerClusters(lifestyle_data.physical_activity, lifestyle_data.id, NombreDeLignes_lifestyle, "Physical Activity");
+    calculerClusters(lifestyle_data.alcohol_consumption, lifestyle_data.id, NombreDeLignes_lifestyle, "Alcohol Consumption");
+    calculerClusters(lifestyle_data.caffeine_consumption, lifestyle_data.id, NombreDeLignes_lifestyle, "Caffeine Consumption");
+    calculerClusters(lifestyle_data.sleep_quality, lifestyle_data.id, NombreDeLignes_lifestyle, "Sleep Quality");
 
     return 0;
 }
