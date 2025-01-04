@@ -28,8 +28,8 @@ int main() {
     fclose(patients);
 
     // Initialisation des clusters
-    float cluster1 = lifestyle_data.physical_activity[0];
-    float cluster2 = lifestyle_data.physical_activity[NombreDeLignes_lifestyle - 1];
+    float cluster1 = lifestyle_data.physical_activity[rand() % NombreDeLignes_lifestyle];
+    float cluster2 = lifestyle_data.physical_activity[rand() % NombreDeLignes_lifestyle];
 
     float Moyen_cluster1_0 = 0, Moyen_cluster1_1 = cluster1;
     float Moyen_cluster2_0 = 0, Moyen_cluster2_1 = cluster2;
@@ -41,6 +41,7 @@ int main() {
     int iteration = 0;
 
     while (iteration < max_iterations && ((fabs(Moyen_cluster1_1 - Moyen_cluster1_0) > 0.01) || (fabs(Moyen_cluster2_1 - Moyen_cluster2_0) > 0.01))) {
+        
         // Réinitialiser les sommes et les compteurs
         Somme_cluster1 = Somme_cluster2 = 0;
         conteur_cluster1 = conteur_cluster2 = 0;
