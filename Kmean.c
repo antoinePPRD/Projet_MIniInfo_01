@@ -82,12 +82,12 @@ void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int
         }
     }
 
-    float pourcentage1 = ((float)intersection / nb_cluster1) * 100;
-    float pourcentage2 = ((float)intersection / nb_cluster2) * 100;
+    float pourcentage1 = (intersection / nb_cluster1) * 100;
+    float pourcentage2 = (intersection / nb_cluster2) * 100;
 
-    printf("Meme IDs entre %s et %s : %d\n", attribut1, attribut2, intersection);
-    printf("Pourcentage de similarité (%s) : %.2f%%\n", attribut1, pourcentage1);
-    printf("Pourcentage de similarité (%s) : %.2f%%\n", attribut2, pourcentage2);
+    printf("Meme IDs entre %s et %s : %f\n", attribut1, attribut2, intersection);
+    printf("Pourcentage de similarité %s : %f\n", attribut1, pourcentage1);
+    printf("Pourcentage de similarité %s : %f\n", attribut2, pourcentage2);
 
     printf("-------------------------------------------------------\n");
 }
