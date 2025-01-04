@@ -36,8 +36,8 @@ int main(){
 
     int n = 2 ;  
     // Initialisation des cluster initio 
-    float cluster1 = rand();
-    float cluster2 = rand();
+    float cluster1 = 1;
+    float cluster2 = 6;
 
     float Moyen_cluster1_0 = 0; 
     float Moyen_cluster1_1 = 0;
@@ -58,7 +58,7 @@ int main(){
     int id_patient_cluster2[NombreDeLignes_lifestyle];
 
     for (int i = 0; i < 2 ; i++){
-        while ((Moyen_cluster1_0 - 2 < Moyen_cluster1_1) && (Moyen_cluster1_1 < Moyen_cluster1_0 + 2)){
+        while ((Moyen_cluster1_0 - 1 < Moyen_cluster1_1) && (Moyen_cluster1_1 < Moyen_cluster1_0 + 1)){
             for(int k = 0 ; k < NombreDeLignes_lifestyle ; k++ ){
                 Disance_cluster1 = CalculeDistanceCluster(cluster1,lifestyle_data.id[k]);
                 Disance_cluster2 = CalculeDistanceCluster(cluster2,lifestyle_data.id[k]);
