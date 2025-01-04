@@ -94,7 +94,7 @@ void afficherLifestyle(const stlifestyle *lifestyle, int n) {
     for (int i = 0; i < n; i++) {
         printf("Patient %d:\n", i + 1);
         printf("  ID: %d\n", lifestyle->id[i]);
-        printf("  Physical Activity: %d\n", lifestyle->physical_activity[i]);
+        printf("  Physical Activity: %f\n", lifestyle->physical_activity[i]);
         printf("  Alcohol Consumption: %.2f\n", lifestyle->alcohol_consumption[i]);
         printf("  Caffeine Consumption: %.2f\n", lifestyle->caffeine_consumption[i]);
         printf("  Sleep Quality: %.2f\n\n", lifestyle->sleep_quality[i]);
