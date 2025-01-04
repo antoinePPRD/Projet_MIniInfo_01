@@ -1,90 +1,76 @@
 #include <stdio.h>
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <math.h>
 #include "main.h"
 
-
-int CalculeDistanceCluster(float cluster, float data){
-    
-    float Disance = 0; 
-    
-    if (cluster > data)
-         Disance = cluster - data ;
-    else Disance = data - cluster ;
-
-    return Disance;
+int CalculeDistanceCluster(float cluster, float data) {
+    return fabs(cluster - data);
 }
 
-
-int main(){
-    // Ouverture des fishier 
+int main() {
+    // Ouverture des fichiers
     FILE *lifestyle = fopen("DATA/lifestyle.pengu", "r");
     FILE *patients = fopen("DATA/patients.pengu", "r");
 
-    // calcul le nombre de ligne 
+    // Calcul du nombre de lignes
     int NombreDeLignes_lifestyle = compterLignes(lifestyle);
     int NombreDeLignes_patients = compterLignes(patients);
-    printf("Nombre de lignes lifestyle : %d\n", NombreDeLignes_lifestyle);
-    printf("Nombre de lignes patients : %d\n", NombreDeLignes_patients);
 
-    // Initialiser la structure stlifestyle 
+    // Initialisation des structures
     stlifestyle lifestyle_data;
     chargerLifestyle(lifestyle, &lifestyle_data);
 
-    // Initialiser la structure stpatients 
     stpatients patient_data;
     chargerPatients(patients, &patient_data);
 
-    int n = 2 ;  
-    // Initialisation des cluster initio 
-    float cluster1 = 1;
-    float cluster2 = 6;
+    // Fermeture des fichiers
+    fclose(lifestyle);
+    fclose(patients);
 
-    float Moyen_cluster1_0 = 0; 
-    float Moyen_cluster1_1 = 0;
-    
-    float Moyen_cluster2_0 = 0;
-    float Moyen_cluster2_1 = 0;
-    
-    float Disance_cluster1 = 0;
-    float Disance_cluster2 = 0;
-    
-    int conteur_cluster1 = 0; 
-    int conteur_cluster2 = 0;
-    
-    float Somme_cluster1 = 0; 
-    float Somme_cluster2 = 0; 
+    // Initialisation des clusters
+    float cluster1 = lifestyle_data.physical_activity[0];
+    float cluster2 = lifestyle_data.physical_activity[NombreDeLignes_lifestyle - 1];
 
-    int id_patient_cluster1[NombreDeLignes_lifestyle];
-    int id_patient_cluster2[NombreDeLignes_lifestyle];
+    float Moyen_cluster1_0 = 0, Moyen_cluster1_1 = cluster1;
+    float Moyen_cluster2_0 = 0, Moyen_cluster2_1 = cluster2;
 
-    for (int i = 0; i < 2 ; i++){
-        while ((Moyen_cluster1_0 - 1 < Moyen_cluster1_1) && (Moyen_cluster1_1 < Moyen_cluster1_0 + 1)){
-            for(int k = 0 ; k < NombreDeLignes_lifestyle ; k++ ){
-                Disance_cluster1 = CalculeDistanceCluster(cluster1,lifestyle_data.physical_activity[k]);
-                Disance_cluster2 = CalculeDistanceCluster(cluster2,lifestyle_data.physical_activity[k]);
-                
-                if (Disance_cluster1 < Disance_cluster2){
-                    Somme_cluster1 = lifestyle_data.physical_activity[k] + Somme_cluster1;
-                    id_patient_cluster1[conteur_cluster1] = lifestyle_data.id[k];
-                    conteur_cluster1 ++ ;
-                } 
-                else{
-                    Somme_cluster2 = lifestyle_data.physical_activity[k] + Somme_cluster2;
-                    id_patient_cluster2[conteur_cluster2] = lifestyle_data.id[k];
-                    conteur_cluster2 ++ ;
-                }
+    int conteur_cluster1 = 0, conteur_cluster2 = 0;
+    float Somme_cluster1 = 0, Somme_cluster2 = 0;
+
+    int max_iterations = 100;
+    int iteration = 0;
+
+    while (iteration < max_iterations && ((fabs(Moyen_cluster1_1 - Moyen_cluster1_0) > 0.01) || (fabs(Moyen_cluster2_1 - Moyen_cluster2_0) > 0.01))) {
+        // Réinitialiser les sommes et les compteurs
+        Somme_cluster1 = Somme_cluster2 = 0;
+        conteur_cluster1 = conteur_cluster2 = 0;
+
+        for (int k = 0; k < NombreDeLignes_lifestyle; k++) {
+            float Disance_cluster1 = CalculeDistanceCluster(cluster1, lifestyle_data.physical_activity[k]);
+            float Disance_cluster2 = CalculeDistanceCluster(cluster2, lifestyle_data.physical_activity[k]);
+
+            if (Disance_cluster1 < Disance_cluster2) {
+                Somme_cluster1 += lifestyle_data.physical_activity[k];
+                conteur_cluster1++;
+            } else {
+                Somme_cluster2 += lifestyle_data.physical_activity[k];
+                conteur_cluster2++;
             }
-        Moyen_cluster1_0 = Moyen_cluster1_1 ;
-        Moyen_cluster1_1 = Somme_cluster1 / conteur_cluster1;
-        cluster1 = Moyen_cluster1_1 ; 
-        
-        Moyen_cluster2_0 = Moyen_cluster2_1 ;
-        Moyen_cluster2_1 = Somme_cluster2 / conteur_cluster2 ; 
-        cluster2 = Moyen_cluster2_1 ;
         }
+
+        Moyen_cluster1_0 = Moyen_cluster1_1;
+        Moyen_cluster1_1 = Somme_cluster1 / conteur_cluster1;
+        cluster1 = Moyen_cluster1_1;
+
+        Moyen_cluster2_0 = Moyen_cluster2_1;
+        Moyen_cluster2_1 = Somme_cluster2 / conteur_cluster2;
+        cluster2 = Moyen_cluster2_1;
+
+        iteration++;
     }
 
-    printf("les cluster sont %f %f", cluster1 , cluster2);
+    printf("Cluster 1: Centre = %f, Nombre d'éléments = %d\n", cluster1, conteur_cluster1);
+    printf("Cluster 2: Centre = %f, Nombre d'éléments = %d\n", cluster2, conteur_cluster2);
 
-
+    return 0;
 }
