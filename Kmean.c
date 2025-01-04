@@ -82,7 +82,7 @@ void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int
         }
     }
 
-    float similariter_cluster = 0.00 ;
+    float similariter_cluster ;
     if (nb_cluster2 > nb_cluster1){
         similariter_cluster = intersection/nb_cluster1;
     }
