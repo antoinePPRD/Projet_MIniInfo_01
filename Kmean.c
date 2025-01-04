@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h> // Ajout pour l'initialisation aléatoire
 #include "main.h"
 
 int CalculeDistanceCluster(float cluster, float data) {
@@ -8,6 +9,9 @@ int CalculeDistanceCluster(float cluster, float data) {
 }
 
 int main() {
+    // Initialiser le générateur aléatoire avec l'heure actuelle
+    srand(time(NULL));
+
     // Ouverture des fichiers
     FILE *lifestyle = fopen("DATA/lifestyle.pengu", "r");
     FILE *patients = fopen("DATA/patients.pengu", "r");
@@ -19,19 +23,19 @@ int main() {
     // Initialisation des structures
     stlifestyle lifestyle_data;
     chargerLifestyle(lifestyle, &lifestyle_data);
+    fclose(lifestyle);
 
     stpatients patient_data;
     chargerPatients(patients, &patient_data);
-
-    // Fermeture des fichiers
-    fclose(lifestyle);
     fclose(patients);
 
     // Initialisation des clusters
-    int r1 = rand() % NombreDeLignes_lifestyle;
-    int r2 = rand() % NombreDeLignes_lifestyle;
+    int r1, r2;
+    r1 = rand() % NombreDeLignes_lifestyle;
+    r2 = rand() % NombreDeLignes_lifestyle;
     float cluster1 = lifestyle_data.physical_activity[r1];
     float cluster2 = lifestyle_data.physical_activity[r2];
+    printf("Initialisation : Cluster 1 = %f (Index %d), Cluster 2 = %f (Index %d)\n",cluster1, r1, cluster2, r2);
 
     float Moyen_cluster1_0 = 0, Moyen_cluster1_1 = cluster1;
     float Moyen_cluster2_0 = 0, Moyen_cluster2_1 = cluster2;
@@ -42,7 +46,7 @@ int main() {
     int max_iterations = 100;
     int iteration = 0;
 
-    while (iteration < max_iterations && ((fabs(Moyen_cluster1_1 - Moyen_cluster1_0) > 1) || (fabs(Moyen_cluster2_1 - Moyen_cluster2_0) > 1))) {
+    while (iteration < max_iterations && ((fabs(Moyen_cluster1_1 - Moyen_cluster1_0) > 0.01) || (fabs(Moyen_cluster2_1 - Moyen_cluster2_0) > 0.01))) {
         
         // Réinitialiser les sommes et les compteurs
         Somme_cluster1 = Somme_cluster2 = 0;
@@ -60,21 +64,25 @@ int main() {
                 conteur_cluster2++;
             }
         }
-        printf("Iteration %d: Somme Cluster 1 = %f, Moyenne Cluster 1 = %f\n", iteration, Somme_cluster1, Moyen_cluster1_1);
-        printf("Iteration %d: Somme Cluster 2 = %f, Moyenne Cluster 2 = %f\n", iteration, Somme_cluster2, Moyen_cluster2_1);
+
         Moyen_cluster1_0 = Moyen_cluster1_1;
-        Moyen_cluster1_1 = Somme_cluster1 / conteur_cluster1;
-        cluster1 = Moyen_cluster1_1;
+        if (conteur_cluster1 > 0) {
+            Moyen_cluster1_1 = Somme_cluster1 / conteur_cluster1;
+            cluster1 = Moyen_cluster1_1;
+        }
 
         Moyen_cluster2_0 = Moyen_cluster2_1;
-        Moyen_cluster2_1 = Somme_cluster2 / conteur_cluster2;
-        cluster2 = Moyen_cluster2_1;
+        if (conteur_cluster2 > 0) {
+            Moyen_cluster2_1 = Somme_cluster2 / conteur_cluster2;
+            cluster2 = Moyen_cluster2_1;
+        }
 
+        printf("Iteration %d: Cluster 1 = %f, Cluster 2 = %f\n", iteration, cluster1, cluster2);
         iteration++;
     }
 
-    printf("Cluster 1: Centre = %f, Nombre d'éléments = %d\n", cluster1, conteur_cluster1);
-    printf("Cluster 2: Centre = %f, Nombre d'éléments = %d\n", cluster2, conteur_cluster2);
+    printf("Final : Cluster 1 = %f, Nombre d'éléments = %d\n", cluster1, conteur_cluster1);
+    printf("Final : Cluster 2 = %f, Nombre d'éléments = %d\n", cluster2, conteur_cluster2);
 
     return 0;
 }
