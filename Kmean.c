@@ -60,16 +60,16 @@ int main(){
     for (int i = 0; i < 2 ; i++){
         while ((Moyen_cluster1_0 - 1 < Moyen_cluster1_1) && (Moyen_cluster1_1 < Moyen_cluster1_0 + 1)){
             for(int k = 0 ; k < NombreDeLignes_lifestyle ; k++ ){
-                Disance_cluster1 = CalculeDistanceCluster(cluster1,lifestyle_data.id[k]);
-                Disance_cluster2 = CalculeDistanceCluster(cluster2,lifestyle_data.id[k]);
+                Disance_cluster1 = CalculeDistanceCluster(cluster1,lifestyle_data.physical_activity[k]);
+                Disance_cluster2 = CalculeDistanceCluster(cluster2,lifestyle_data.physical_activity[k]);
                 
                 if (Disance_cluster1 < Disance_cluster2){
-                    Somme_cluster1 = lifestyle_data.id[k] + Somme_cluster1;
+                    Somme_cluster1 = lifestyle_data.physical_activity[k] + Somme_cluster1;
                     id_patient_cluster1[conteur_cluster1] = lifestyle_data.id[k];
                     conteur_cluster1 ++ ;
                 } 
                 else{
-                    Somme_cluster2 = lifestyle_data.id[k] + Somme_cluster2;
+                    Somme_cluster2 = lifestyle_data.physical_activity[k] + Somme_cluster2;
                     id_patient_cluster2[conteur_cluster2] = lifestyle_data.id[k];
                     conteur_cluster2 ++ ;
                 }
