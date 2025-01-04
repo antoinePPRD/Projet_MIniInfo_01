@@ -82,13 +82,8 @@ void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int
         }
     }
 
-    float similariter_cluster = 0;
-    if (nb_cluster2 > nb_cluster1) {
-        similariter_cluster = (intersection/nb_cluster1)*100;
-    }
-    else {
-        similariter_cluster = (intersection/nb_cluster2)*100;
-    }
+    float similariter_cluster = (intersection/((nb_cluster1+nb_cluster2)/2))*100;
+
     printf("Meme IDs entre (%s) et (%s) : %f\n Pourcentage de similariter :%f\n", attribut1, attribut2, intersection, similariter_cluster);
     printf("-------------------------------------------------------\n");
 }
