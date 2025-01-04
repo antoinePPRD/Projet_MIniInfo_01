@@ -67,7 +67,7 @@ void calculerClusters(float *data, int *ids, int n, const char *attribut, int *c
     printf("Final (%s): Cluster 1 = %f, Nombre d'éléments = %d\n", attribut, cluster1, conteur_cluster1);
     printf("Final (%s): Cluster 2 = %f, Nombre d'éléments = %d\n", attribut, cluster2, conteur_cluster2);
 
-    printf("-------------------------------------------------------\n")
+    printf("-------------------------------------------------------\n");
 }
 
 void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int nb_cluster2, const char *attribut1, const char *attribut2) {
