@@ -10,16 +10,12 @@ int CalculeDistanceCluster(float cluster, float data) {
 
 void calculerClusters(float *data, int *ids, int n, const char *attribut) {
     int r1, r2;
-    do {
-        r1 = rand() % n;
-        r2 = rand() % n;
-    } while (r1 == r2);
-
+    r1 = rand() % n;
+    r2 = rand() % n;
     float cluster1 = data[r1];
     float cluster2 = data[r2];
 
-    printf("Initialisation (%s) : Cluster 1 = %f (Index %d), Cluster 2 = %f (Index %d)\n",
-           attribut, cluster1, r1, cluster2, r2);
+    printf("Initialisation (%s) : Cluster 1 = %f (Index %d), Cluster 2 = %f (Index %d)\n",attribut, cluster1, r1, cluster2, r2);
 
     float Moyen_cluster1_0 = 0, Moyen_cluster1_1 = cluster1;
     float Moyen_cluster2_0 = 0, Moyen_cluster2_1 = cluster2;
@@ -51,16 +47,14 @@ void calculerClusters(float *data, int *ids, int n, const char *attribut) {
         }
 
         Moyen_cluster1_0 = Moyen_cluster1_1;
-        if (conteur_cluster1 > 0) {
-            Moyen_cluster1_1 = Somme_cluster1 / conteur_cluster1;
-            cluster1 = Moyen_cluster1_1;
-        }
+        Moyen_cluster1_1 = Somme_cluster1 / conteur_cluster1;
+        cluster1 = Moyen_cluster1_1;
+        
 
         Moyen_cluster2_0 = Moyen_cluster2_1;
-        if (conteur_cluster2 > 0) {
-            Moyen_cluster2_1 = Somme_cluster2 / conteur_cluster2;
-            cluster2 = Moyen_cluster2_1;
-        }
+        Moyen_cluster2_1 = Somme_cluster2 / conteur_cluster2;
+        cluster2 = Moyen_cluster2_1;
+        
 
         printf("Iteration %d (%s): Cluster 1 = %f, Cluster 2 = %f\n", iteration, attribut, cluster1, cluster2);
         iteration++;
