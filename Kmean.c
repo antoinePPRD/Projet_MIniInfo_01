@@ -87,7 +87,7 @@ void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int
         similariter_cluster = intersection/nb_cluster1;
     else similariter_cluster = intersection/nb_cluster2;
 
-    printf("Meme IDs entre (%s) et (%s) : %d\n Pourcentage de similariter :%f\n", attribut1, attribut2, intersection, similariter_cluster);
+    printf("Meme IDs entre (%s) et (%s) : %f\n Pourcentage de similariter :%f\n", attribut1, attribut2, intersection, similariter_cluster);
     printf("-------------------------------------------------------\n");
 }
 
