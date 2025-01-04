@@ -58,8 +58,6 @@ void calculerClusters(float *data, int *ids, int n, const char *attribut, int *c
             Moyen_cluster2_1 = Somme_cluster2 / conteur_cluster2;
             cluster2 = Moyen_cluster2_1;
         }
-
-        printf("Iteration %d (%s): Cluster 1 = %f, Cluster 2 = %f\n", iteration, attribut, cluster1, cluster2);
         iteration++;
     }
 
@@ -68,6 +66,8 @@ void calculerClusters(float *data, int *ids, int n, const char *attribut, int *c
 
     printf("Final (%s): Cluster 1 = %f, Nombre d'éléments = %d\n", attribut, cluster1, conteur_cluster1);
     printf("Final (%s): Cluster 2 = %f, Nombre d'éléments = %d\n", attribut, cluster2, conteur_cluster2);
+
+    printf("-------------------------------------------------------\n")
 }
 
 void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int nb_cluster2, const char *attribut1, const char *attribut2) {
