@@ -87,7 +87,7 @@ int main(){
         }
     }
 
-    printf("les cluster sont %d %d ", cluster1 , cluster2);
+    printf("les cluster sont %f %f", cluster1 , cluster2);
 
 
 }
