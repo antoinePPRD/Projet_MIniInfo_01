@@ -29,6 +29,7 @@ int main() {
 
     // Initialisation des clusters
     float cluster1 = lifestyle_data.physical_activity[rand() % NombreDeLignes_lifestyle];
+    printf("cluster 1 : %f", cluster1);
     float cluster2 = lifestyle_data.physical_activity[rand() % NombreDeLignes_lifestyle];
 
     float Moyen_cluster1_0 = 0, Moyen_cluster1_1 = cluster1;
