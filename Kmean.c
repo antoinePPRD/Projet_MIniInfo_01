@@ -72,27 +72,24 @@ void calculerClusters(float *data, int *ids, int n, const char *attribut, int *c
 
 void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int nb_cluster2, const char *attribut1, const char *attribut2) {
     printf("\n--- Analyse des clusters entre %s et %s ---\n", attribut1, attribut2);
-
-    int intersection1 = 0, intersection2 = 0;
+    int intersection = 0;
 
     for (int i = 0; i < nb_cluster1; i++) {
         for (int j = 0; j < nb_cluster2; j++) {
             if (cluster1_ids[i] == cluster2_ids[j]) {
-                intersection1++;
+                intersection++;
             }
         }
     }
 
-    for (int i = 0; i < nb_cluster1; i++) {
-        for (int j = 0; j < nb_cluster2; j++) {
-            if (cluster2_ids[i] == cluster2_ids[j]) {
-                intersection2++;
-            }
-        }
+    float similariter_cluster = 0.00 ;
+    if (nb_cluster2 > nb_cluster1){
+        similariter_cluster = intersection/nb_cluster1;
     }
-
-    printf("Intersection IDs entre Cluster 1 (%s) et Cluster 1 (%s) : %d\n", attribut1, attribut2, intersection1);
-    printf("Intersection IDs entre Cluster 2 (%s) et Cluster 2 (%s) : %d\n", attribut1, attribut2, intersection2);
+    else{
+        similariter_cluster = intersection/nb_cluster2;
+    }   
+    printf("Meme IDs entre (%s) et (%s) : %d\n Pourcentage de similariter :%f\n", attribut1, attribut2, intersection, similariter_cluster);
     printf("-------------------------------------------------------\n");
 }
 
@@ -132,13 +129,13 @@ int main() {
     calculerClusters(lifestyle_data.sleep_quality, lifestyle_data.id, NombreDeLignes_lifestyle,"Sleep Quality", cluster1_ids_sq, cluster2_ids_sq, &nb_cluster1_sq, &nb_cluster2_sq);
 
     // Comparer les clusters pour identifier les corrélations
-    analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster1_ids_ac, nb_cluster1_ac, "Physical Activity", "Alcohol Consumption");
-    analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster1_ids_cc, nb_cluster1_cc, "Physical Activity", "Caffeine Consumption");
-    analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster1_ids_sq, nb_cluster1_sq, "Physical Activity", "Sleep Quality");
+    analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster1_ids_ac, nb_cluster1_ac, "Cluster 1 Physical Activity", "Cluster 1 Alcohol Consumption");
+    analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster1_ids_cc, nb_cluster1_cc, "Cluster 1 Physical Activity", "Cluster 1 Caffeine Consumption");
+    analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster1_ids_sq, nb_cluster1_sq, "Cluster 1 Physical Activity", "Cluster 1 Sleep Quality");
 
-    analyserClusters(cluster2_ids_pa, nb_cluster2_pa, cluster2_ids_ac, nb_cluster2_ac, "Physical Activity", "Alcohol Consumption");
-    analyserClusters(cluster2_ids_pa, nb_cluster2_pa, cluster2_ids_cc, nb_cluster2_cc, "Physical Activity", "Caffeine Consumption");
-    analyserClusters(cluster2_ids_pa, nb_cluster2_pa, cluster2_ids_sq, nb_cluster2_sq, "Physical Activity", "Sleep Quality");
+    analyserClusters(cluster2_ids_pa, nb_cluster2_pa, cluster2_ids_ac, nb_cluster2_ac, "Cluster 2 Physical Activity", "Cluster 2 Alcohol Consumption");
+    analyserClusters(cluster2_ids_pa, nb_cluster2_pa, cluster2_ids_cc, nb_cluster2_cc, "Cluster 2 Physical Activity", "Cluster 2 Caffeine Consumption");
+    analyserClusters(cluster2_ids_pa, nb_cluster2_pa, cluster2_ids_sq, nb_cluster2_sq, "Cluster 2 Physical Activity", "Cluster 2 Sleep Quality");
 
     return 0;
 }
