@@ -8,7 +8,7 @@ int CalculeDistanceCluster(float cluster, float data) {
     return fabs(cluster - data);
 }
 
-void calculerClusters(float *data, int *ids, int n, const char *attribut) {
+void calculerClusters(float *data, int n, const char *attribut) {
     int r1, r2;
     r1 = rand() % n;
     r2 = rand() % n;
@@ -77,10 +77,10 @@ int main() {
     fclose(lifestyle);
 
     // Calculer les clusters pour chaque attribut
-    calculerClusters(lifestyle_data.physical_activity, lifestyle_data.id, NombreDeLignes_lifestyle, "Physical Activity");
-    calculerClusters(lifestyle_data.alcohol_consumption, lifestyle_data.id, NombreDeLignes_lifestyle, "Alcohol Consumption");
-    calculerClusters(lifestyle_data.caffeine_consumption, lifestyle_data.id, NombreDeLignes_lifestyle, "Caffeine Consumption");
-    calculerClusters(lifestyle_data.sleep_quality, lifestyle_data.id, NombreDeLignes_lifestyle, "Sleep Quality");
+    calculerClusters(lifestyle_data.physical_activity, NombreDeLignes_lifestyle, "Physical Activity");
+    calculerClusters(lifestyle_data.alcohol_consumption, NombreDeLignes_lifestyle, "Alcohol Consumption");
+    calculerClusters(lifestyle_data.caffeine_consumption, NombreDeLignes_lifestyle, "Caffeine Consumption");
+    calculerClusters(lifestyle_data.sleep_quality, NombreDeLignes_lifestyle, "Sleep Quality");
 
     return 0;
 }
