@@ -13,10 +13,10 @@ int main() {
     printf("Nombre de lignes patients : %d\n", NombreDeLignes_patients);
 
     // Initialiser la structure stlifestyle 
-    stlifestyle OBS;
-    chargerLifestyle(lifestyle, &OBS);
+    stlifestyle lifestyle_data;
+    chargerLifestyle(lifestyle, &lifestyle_data);
     // TEST Afficher les 5 premiers enregistrements pour vérifier
-    afficherLifestyle(&OBS, 5);
+    afficherLifestyle(&lifestyle_data, 5);
 
     // Initialiser la structure stpatients 
     stpatients patient_data;
