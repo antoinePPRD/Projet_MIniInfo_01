@@ -88,8 +88,6 @@ void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int
     printf("Meme IDs entre %s et %s : %f\n", attribut1, attribut2, intersection);
     printf("Pourcentage de similarité %s : %f\n", attribut1, pourcentage1);
     printf("Pourcentage de similarité %s : %f\n", attribut2, pourcentage2);
-
-    printf("-------------------------------------------------------\n");
 }
 
 int main() {
@@ -125,40 +123,52 @@ int main() {
     calculerClusters(lifestyle_data.sleep_quality, lifestyle_data.id, NombreDeLignes_lifestyle,"Sleep Quality", cluster1_ids_sq, cluster2_ids_sq, &nb_cluster1_sq, &nb_cluster2_sq);
 
     // Comparaisons entre Physical Activity et Alcohol Consumption
+    printf("Comparaisons entre Physical Activity et Alcohol Consumption");
     analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster1_ids_ac, nb_cluster1_ac, "Cluster 1 Physical Activity", "Cluster 1 Alcohol Consumption");
     analyserClusters(cluster2_ids_pa, nb_cluster2_pa, cluster2_ids_ac, nb_cluster2_ac, "Cluster 2 Physical Activity", "Cluster 2 Alcohol Consumption");
     analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster2_ids_ac, nb_cluster2_ac, "Cluster 1 Physical Activity", "Cluster 2 Alcohol Consumption");
     analyserClusters(cluster1_ids_ac, nb_cluster1_ac, cluster2_ids_pa, nb_cluster2_pa, "Cluster 1 Alcohol Consumption", "Cluster 2 Physical Activity");
+    printf("-------------------------------------------------------\n");
 
     // Comparaisons entre Physical Activity et Caffeine Consumption
+    printf("Comparaisons entre Physical Activity et Caffeine Consumption");
     analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster1_ids_cc, nb_cluster1_cc, "Cluster 1 Physical Activity", "Cluster 1 Caffeine Consumption");
     analyserClusters(cluster2_ids_pa, nb_cluster2_pa, cluster2_ids_cc, nb_cluster2_cc, "Cluster 2 Physical Activity", "Cluster 2 Caffeine Consumption");
     analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster2_ids_cc, nb_cluster2_cc, "Cluster 1 Physical Activity", "Cluster 2 Caffeine Consumption");
     analyserClusters(cluster1_ids_cc, nb_cluster1_cc, cluster2_ids_pa, nb_cluster2_pa, "Cluster 1 Caffeine Consumption", "Cluster 2 Physical Activity");
+    printf("-------------------------------------------------------\n");
 
     // Comparaisons entre Physical Activity et Sleep Quality
+    printf("Comparaisons entre Physical Activity et Sleep Quality");
     analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster1_ids_sq, nb_cluster1_sq, "Cluster 1 Physical Activity", "Cluster 1 Sleep Quality");
     analyserClusters(cluster2_ids_pa, nb_cluster2_pa, cluster2_ids_sq, nb_cluster2_sq, "Cluster 2 Physical Activity", "Cluster 2 Sleep Quality");
     analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster2_ids_sq, nb_cluster2_sq, "Cluster 1 Physical Activity", "Cluster 2 Sleep Quality");
     analyserClusters(cluster1_ids_sq, nb_cluster1_sq, cluster2_ids_pa, nb_cluster2_pa, "Cluster 1 Sleep Quality", "Cluster 2 Physical Activity");
+    printf("-------------------------------------------------------\n");
 
     // Comparaisons entre Alcohol Consumption et Caffeine Consumption
+    printf("Comparaisons entre Alcohol Consumption et Caffeine Consumption");
     analyserClusters(cluster1_ids_ac, nb_cluster1_ac, cluster1_ids_cc, nb_cluster1_cc, "Cluster 1 Alcohol Consumption", "Cluster 1 Caffeine Consumption");
     analyserClusters(cluster2_ids_ac, nb_cluster2_ac, cluster2_ids_cc, nb_cluster2_cc, "Cluster 2 Alcohol Consumption", "Cluster 2 Caffeine Consumption");
     analyserClusters(cluster1_ids_ac, nb_cluster1_ac, cluster2_ids_cc, nb_cluster2_cc, "Cluster 1 Alcohol Consumption", "Cluster 2 Caffeine Consumption");
     analyserClusters(cluster1_ids_cc, nb_cluster1_cc, cluster2_ids_ac, nb_cluster2_ac, "Cluster 1 Caffeine Consumption", "Cluster 2 Alcohol Consumption");
+    printf("-------------------------------------------------------\n");
 
     // Comparaisons entre Alcohol Consumption et Sleep Quality
+    printf("Comparaisons entre Alcohol Consumption et Sleep Quality");
     analyserClusters(cluster1_ids_ac, nb_cluster1_ac, cluster1_ids_sq, nb_cluster1_sq, "Cluster 1 Alcohol Consumption", "Cluster 1 Sleep Quality");
     analyserClusters(cluster2_ids_ac, nb_cluster2_ac, cluster2_ids_sq, nb_cluster2_sq, "Cluster 2 Alcohol Consumption", "Cluster 2 Sleep Quality");
     analyserClusters(cluster1_ids_ac, nb_cluster1_ac, cluster2_ids_sq, nb_cluster2_sq, "Cluster 1 Alcohol Consumption", "Cluster 2 Sleep Quality");
     analyserClusters(cluster1_ids_sq, nb_cluster1_sq, cluster2_ids_ac, nb_cluster2_ac, "Cluster 1 Sleep Quality", "Cluster 2 Alcohol Consumption");
+    printf("-------------------------------------------------------\n");
 
     // Comparaisons entre Caffeine Consumption et Sleep Quality
+    printf("Comparaisons entre Caffeine Consumption et Sleep Quality");
     analyserClusters(cluster1_ids_cc, nb_cluster1_cc, cluster1_ids_sq, nb_cluster1_sq, "Cluster 1 Caffeine Consumption", "Cluster 1 Sleep Quality");
     analyserClusters(cluster2_ids_cc, nb_cluster2_cc, cluster2_ids_sq, nb_cluster2_sq, "Cluster 2 Caffeine Consumption", "Cluster 2 Sleep Quality");
     analyserClusters(cluster1_ids_cc, nb_cluster1_cc, cluster2_ids_sq, nb_cluster2_sq, "Cluster 1 Caffeine Consumption", "Cluster 2 Sleep Quality");
     analyserClusters(cluster1_ids_sq, nb_cluster1_sq, cluster2_ids_cc, nb_cluster2_cc, "Cluster 1 Sleep Quality", "Cluster 2 Caffeine Consumption");
+    printf("-------------------------------------------------------\n");
 
     return 0;
 }
