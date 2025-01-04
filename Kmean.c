@@ -72,7 +72,7 @@ void calculerClusters(float *data, int *ids, int n, const char *attribut, int *c
 
 void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int nb_cluster2, const char *attribut1, const char *attribut2) {
     printf("\n--- Analyse des clusters entre %s et %s ---\n", attribut1, attribut2);
-    int intersection = 0;
+    float intersection = 0;
 
     for (int i = 0; i < nb_cluster1; i++) {
         for (int j = 0; j < nb_cluster2; j++) {
