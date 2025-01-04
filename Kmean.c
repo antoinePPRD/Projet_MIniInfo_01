@@ -10,16 +10,12 @@ int CalculeDistanceCluster(float cluster, float data) {
 
 void calculerClusters(float *data, int *ids, int n, const char *attribut, int *cluster1_ids, int *cluster2_ids, int *nb_cluster1, int *nb_cluster2) {
     int r1, r2;
-    do {
-        r1 = rand() % n;
-        r2 = rand() % n;
-    } while (r1 == r2);
-
+    r1 = rand() % n;
+    r2 = rand() % n;
     float cluster1 = data[r1];
     float cluster2 = data[r2];
 
-    printf("Initialisation (%s) : Cluster 1 = %f (Index %d), Cluster 2 = %f (Index %d)\n",
-           attribut, cluster1, r1, cluster2, r2);
+    printf("Initialisation (%s) : Cluster 1 = %f (Index %d), Cluster 2 = %f (Index %d)\n",attribut, cluster1, r1, cluster2, r2);
 
     float Moyen_cluster1_0 = 0, Moyen_cluster1_1 = cluster1;
     float Moyen_cluster2_0 = 0, Moyen_cluster2_1 = cluster2;
@@ -30,9 +26,7 @@ void calculerClusters(float *data, int *ids, int n, const char *attribut, int *c
     int max_iterations = 100;
     int iteration = 0;
 
-    while (iteration < max_iterations && 
-           ((fabs(Moyen_cluster1_1 - Moyen_cluster1_0) > 0.01) || 
-            (fabs(Moyen_cluster2_1 - Moyen_cluster2_0) > 0.01))) {
+    while (iteration < max_iterations && ((fabs(Moyen_cluster1_1 - Moyen_cluster1_0) > 0.01) || (fabs(Moyen_cluster2_1 - Moyen_cluster2_0) > 0.01))) {
         
         Somme_cluster1 = Somme_cluster2 = 0;
         conteur_cluster1 = conteur_cluster2 = 0;
@@ -42,11 +36,14 @@ void calculerClusters(float *data, int *ids, int n, const char *attribut, int *c
             float Disance_cluster2 = CalculeDistanceCluster(cluster2, data[i]);
 
             if (Disance_cluster1 < Disance_cluster2) {
-                Somme_cluster1 += data[i];
-                cluster1_ids[conteur_cluster1++] = ids[i];
-            } else {
-                Somme_cluster2 += data[i];
-                cluster2_ids[conteur_cluster2++] = ids[i];
+                Somme_cluster1 = Somme_cluster1 + data[i];
+                conteur_cluster1++;
+                cluster1_ids[conteur_cluster1] = ids[i];
+            } 
+            else {
+                Somme_cluster2 = Somme_cluster2 + data[i];
+                conteur_cluster2++;
+                cluster2_ids[conteur_cluster2] = ids[i];
             }
         }
 
@@ -82,7 +79,6 @@ void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int
         for (int j = 0; j < nb_cluster2; j++) {
             if (cluster1_ids[i] == cluster2_ids[j]) {
                 intersection1++;
-                break;
             }
         }
     }
@@ -91,7 +87,6 @@ void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int
         for (int j = 0; j < nb_cluster2; j++) {
             if (cluster2_ids[i] == cluster2_ids[j]) {
                 intersection2++;
-                break;
             }
         }
     }
@@ -128,17 +123,13 @@ int main() {
     int nb_cluster1_sq, nb_cluster2_sq;
 
     // Calculer les clusters pour chaque attribut
-    calculerClusters(lifestyle_data.physical_activity, lifestyle_data.id, NombreDeLignes_lifestyle,
-                     "Physical Activity", cluster1_ids_pa, cluster2_ids_pa, &nb_cluster1_pa, &nb_cluster2_pa);
+    calculerClusters(lifestyle_data.physical_activity, lifestyle_data.id, NombreDeLignes_lifestyle,"Physical Activity", cluster1_ids_pa, cluster2_ids_pa, &nb_cluster1_pa, &nb_cluster2_pa);
 
-    calculerClusters(lifestyle_data.alcohol_consumption, lifestyle_data.id, NombreDeLignes_lifestyle,
-                     "Alcohol Consumption", cluster1_ids_ac, cluster2_ids_ac, &nb_cluster1_ac, &nb_cluster2_ac);
+    calculerClusters(lifestyle_data.alcohol_consumption, lifestyle_data.id, NombreDeLignes_lifestyle,"Alcohol Consumption", cluster1_ids_ac, cluster2_ids_ac, &nb_cluster1_ac, &nb_cluster2_ac);
 
-    calculerClusters(lifestyle_data.caffeine_consumption, lifestyle_data.id, NombreDeLignes_lifestyle,
-                     "Caffeine Consumption", cluster1_ids_cc, cluster2_ids_cc, &nb_cluster1_cc, &nb_cluster2_cc);
+    calculerClusters(lifestyle_data.caffeine_consumption, lifestyle_data.id, NombreDeLignes_lifestyle,"Caffeine Consumption", cluster1_ids_cc, cluster2_ids_cc, &nb_cluster1_cc, &nb_cluster2_cc);
 
-    calculerClusters(lifestyle_data.sleep_quality, lifestyle_data.id, NombreDeLignes_lifestyle,
-                     "Sleep Quality", cluster1_ids_sq, cluster2_ids_sq, &nb_cluster1_sq, &nb_cluster2_sq);
+    calculerClusters(lifestyle_data.sleep_quality, lifestyle_data.id, NombreDeLignes_lifestyle,"Sleep Quality", cluster1_ids_sq, cluster2_ids_sq, &nb_cluster1_sq, &nb_cluster2_sq);
 
     // Comparer les clusters pour identifier les corrélations
     analyserClusters(cluster1_ids_pa, nb_cluster1_pa, cluster1_ids_ac, nb_cluster1_ac, "Physical Activity", "Alcohol Consumption");
