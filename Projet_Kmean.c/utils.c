@@ -103,7 +103,6 @@ void afficherLifestyle(const stlifestyle *lifestyle, int n) {
     }
 }
 
-
 int CalculeDistanceCluster(float cluster, float data) {
     return fabs(cluster - data);
 }
