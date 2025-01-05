@@ -16,6 +16,8 @@ int compterLignes(FILE *fichier) {
     return NbLigne;
 }
 
+#include <ctype.h>
+
 void chargerPatients(FILE *file, stpatients *patients) {
     char line[MAX_LINE];
     int index = 0;
@@ -43,18 +45,25 @@ void chargerPatients(FILE *file, stpatients *patients) {
         if (token) patients->heart_rate[index] = atof(token);
         token = strtok(NULL, "$");
         if (token) {
-            // Vérifie si le champ "condition" est "True" ou "False"
-            if (strcmp(token, "True") == 0) {
+            // Nettoyer la chaîne pour supprimer les espaces
+            char *cleaned_token = token;
+            while (isspace((unsigned char)*cleaned_token)) cleaned_token++;
+            for (int i = strlen(cleaned_token) - 1; i >= 0 && isspace((unsigned char)cleaned_token[i]); i--) {
+                cleaned_token[i] = '\0';
+            }
+
+            // Comparer avec "True" ou "False"
+            if (strcmp(cleaned_token, "True") == 0) {
                 patients->condition[index] = 1; // À risque
-            } else if (strcmp(token, "False") == 0) {
+            } else if (strcmp(cleaned_token, "False") == 0) {
                 patients->condition[index] = 0; // Non à risque
             } else {
-                printf("Erreur : Valeur inattendue pour 'condition' : %s\n", token);
+                printf("Erreur : Valeur inattendue pour 'condition' : %s\n", cleaned_token);
             }
         }
         index++;
     }
-    rewind(file); 
+    rewind(file); // Réinitialiser le pointeur de fichier
 }
 
 void chargerLifestyle(FILE *file, stlifestyle *lifestyle) {
