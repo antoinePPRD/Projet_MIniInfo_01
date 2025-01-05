@@ -163,12 +163,21 @@ void effectuerComparaison(int choix, int *cluster1_ids_pa, int nb_cluster1_pa, i
 int main() {
     // Fonction rodom 
     srand(time(NULL));
+    // Ouverture des fishier 
     FILE *lifestyle = fopen("DATA/lifestyle.pengu", "r");
+    FILE *patients = fopen("DATA/patients.pengu", "r");
 
+    // calcul le nombre de ligne lifestyle
     int NombreDeLignes_lifestyle = compterLignes(lifestyle);
+    
     stlifestyle lifestyle_data;
     chargerLifestyle(lifestyle, &lifestyle_data);
+    stpatients patient_data;
+    chargerPatients(patients, &patient_data);
+
     fclose(lifestyle);
+    fclose(patients);
+
 
     // Listes pour stocker les ids des clusters pour chaque attribut
     int cluster1_ids_pa[10000], cluster2_ids_pa[10000];
