@@ -40,17 +40,13 @@ void calculerClusters(float *data,int *data2, int *ids, int n, const char *attri
                 Somme_cluster1 = Somme_cluster1 + data[i];
                 conteur_cluster1++;
                 cluster1_ids[conteur_cluster1] = ids[i];
-                if (data2[i] == 1 ) {  
-                    conteur_Patient_Risque_cluster1++;
-                }
+                if (data2[i] == 1 ) conteur_Patient_Risque_cluster1++;   
             } 
             else {
                 Somme_cluster2 = Somme_cluster2 + data[i];
                 conteur_cluster2++;
                 cluster2_ids[conteur_cluster2] = ids[i];
-                if (data2[i] == 1) {  
-                    conteur_Patient_Risque_cluster2++;
-                }
+                if (data2[i] == 1) conteur_Patient_Risque_cluster2++;    
             }
         }
 
