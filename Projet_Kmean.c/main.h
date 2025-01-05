@@ -1,6 +1,3 @@
-#ifndef MAIN_H
-#define MAIN_H
-
 #define MAX_LINE 1024
 #define MAX_FIELDS 20
 
@@ -32,5 +29,3 @@ void chargerPatients(FILE *file, stpatients *patients);
 void chargerLifestyle(FILE *file, stlifestyle *lifestyle);
 void afficherPatients(const stpatients *patients, int n);
 void afficherLifestyle(const stlifestyle *lifestyle, int n);
-
-#endif
