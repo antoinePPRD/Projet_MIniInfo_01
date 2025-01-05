@@ -23,9 +23,16 @@ typedef struct stlifestyle {
     float sleep_quality[10000];
 } stlifestyle;
 
-// Fonctions
+// Fonctions utilitaires
 int compterLignes(FILE *fichier);
 void chargerPatients(FILE *file, stpatients *patients);
 void chargerLifestyle(FILE *file, stlifestyle *lifestyle);
 void afficherPatients(const stpatients *patients, int n);
 void afficherLifestyle(const stlifestyle *lifestyle, int n);
+
+// Fonctions liées a K.mean
+int CalculeDistanceCluster(float cluster, float data);
+void calculerClusters(float *data, int *ids, int n, const char *attribut, int *cluster1_ids, int *cluster2_ids, int *nb_cluster1, int *nb_cluster2);
+void analyserClusters(int *cluster1_ids, int nb_cluster1, int *cluster2_ids, int nb_cluster2, const char *attribut1, const char *attribut2);
+void afficherMenuComparaisons();
+void effectuerComparaison(int choix, int *cluster1_ids_pa, int nb_cluster1_pa, int *cluster2_ids_pa, int nb_cluster2_pa, int *cluster1_ids_ac, int nb_cluster1_ac, int *cluster2_ids_ac, int nb_cluster2_ac, int *cluster1_ids_cc, int nb_cluster1_cc, int *cluster2_ids_cc, int nb_cluster2_cc, int *cluster1_ids_sq, int nb_cluster1_sq, int *cluster2_ids_sq, int nb_cluster2_sq);
