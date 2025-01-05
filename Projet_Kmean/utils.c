@@ -3,7 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include "main.h"
-#include <ctype.h>
+
 
 int compterLignes(FILE *fichier) {
     int car, NbLigne = 1;
@@ -16,43 +16,51 @@ int compterLignes(FILE *fichier) {
     return NbLigne;
 }
 
+#include <ctype.h>
+
 void chargerPatients(FILE *file, stpatients *patients) {
     char line[MAX_LINE];
     int index = 0;
 
     while (fgets(line, sizeof(line), file) != NULL) {
         line[strcspn(line, "\n")] = '\0'; // Supprimer le saut de ligne
-        char *tokens[MAX_FIELDS];
-        int token_index = 0;
-
-        // Diviser la ligne en tokens avec '$' comme séparateur
         char *token = strtok(line, "$");
-        while (token != NULL && token_index < MAX_FIELDS) {
-            tokens[token_index++] = token;
-            token = strtok(NULL, "$");
+
+        if (token) patients->patient_id[index] = atoi(token);
+        token = strtok(NULL, "$");
+        if (token) patients->record_id[index] = atoi(token);
+        token = strtok(NULL, "$");
+        if (token) patients->age[index] = atoi(token);
+        token = strtok(NULL, "$");
+        if (token) patients->gender[index] = token[0];
+        token = strtok(NULL, "$");
+        if (token) patients->weight[index] = atof(token);
+        token = strtok(NULL, "$");
+        if (token) patients->height[index] = atoi(token);
+        token = strtok(NULL, "$");
+        if (token) patients->systolic_bp[index] = atoi(token);
+        token = strtok(NULL, "$");
+        if (token) patients->diastolic_bp[index] = atoi(token);
+        token = strtok(NULL, "$");
+        if (token) patients->heart_rate[index] = atof(token);
+        token = strtok(NULL, "$");
+        if (token) {
+            // Nettoyer la chaîne pour supprimer les espaces
+            char *cleaned_token = token;
+            while (isspace((unsigned char)*cleaned_token)) cleaned_token++;
+            for (int i = strlen(cleaned_token) - 1; i >= 0 && isspace((unsigned char)cleaned_token[i]); i--) {
+                cleaned_token[i] = '\0';
+            }
+
+            // Comparer avec "True" ou "False"
+            if (strcmp(cleaned_token, "True") == 0) {
+                patients->condition[index] = 1; // À risque
+            } else if (strcmp(cleaned_token, "False") == 0) {
+                patients->condition[index] = 0; // Non à risque
+            } else {
+                printf("Erreur : Valeur inattendue pour 'condition' : %s\n", cleaned_token);
+            }
         }
-
-        // Nettoyer les espaces de chaque token
-        for (int i = 0; i < token_index; i++) {
-            char *start = tokens[i];
-            while (isspace((unsigned char)*start)) start++; // Supprimer les espaces en début
-            char *end = start + strlen(start) - 1;
-            while (end > start && isspace((unsigned char)*end)) *end-- = '\0'; // Supprimer les espaces en fin
-            tokens[i] = start;
-        }
-
-        // Assigner les valeurs aux champs de la structure
-        patients->patient_id[index] = atoi(tokens[0]);
-        patients->record_id[index] = atoi(tokens[1]);
-        patients->age[index] = atoi(tokens[2]);
-        patients->gender[index] = tokens[3][0];
-        patients->weight[index] = atof(tokens[4]);
-        patients->height[index] = atoi(tokens[5]);
-        patients->systolic_bp[index] = atoi(tokens[6]);
-        patients->diastolic_bp[index] = atoi(tokens[7]);
-        patients->heart_rate[index] = atof(tokens[8]);
-        patients->condition[index] = (strcmp(tokens[9], "True") == 0) ? 1 : 0;
-
         index++;
     }
     rewind(file); // Réinitialiser le pointeur de fichier
