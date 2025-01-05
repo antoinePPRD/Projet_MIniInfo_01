@@ -67,12 +67,13 @@ void calculerClusters(float *data,int *data2, int *ids, int n, const char *attri
     *nb_cluster1 = conteur_cluster1;
     *nb_cluster2 = conteur_cluster2;
 
-    int pourcentage_Patient_Risque_cluster1 = (conteur_Patient_Risque_cluster1 / conteur_cluster1)*100;
-    int pourcentage_Patient_Risque_cluster2 = (conteur_Patient_Risque_cluster2 / conteur_cluster2)*100;
+    float pourcentage_Patient_Risque_cluster1 = ((float)conteur_Patient_Risque_cluster1 / (float)conteur_cluster1)*100;
+    float pourcentage_Patient_Risque_cluster2 = ((float)conteur_Patient_Risque_cluster2 / (float)conteur_cluster2)*100;
 
     printf("Final (%s): Cluster 1 = %f, Nombre d'éléments = %d\n", attribut, cluster1, conteur_cluster1);
-    printf("Le nombre de patient a risque dans le cluster 1 est de : %d ce qui fait %d pourcent ", conteur_Patient_Risque_cluster1, pourcentage_Patient_Risque_cluster1 );
+    printf("Le nombre de patient a risque dans le cluster 1 est de : %d ce qui fait %f pourcent \n", conteur_Patient_Risque_cluster1, pourcentage_Patient_Risque_cluster1 );
     printf("Final (%s): Cluster 2 = %f, Nombre d'éléments = %d\n", attribut, cluster2, conteur_cluster2);
+    printf("Le nombre de patient a risque dans le cluster 1 est de : %d ce qui fait %f pourcent \n", conteur_Patient_Risque_cluster2, pourcentage_Patient_Risque_cluster2 );
 
     printf("-------------------------------------------------------\n");
 }
