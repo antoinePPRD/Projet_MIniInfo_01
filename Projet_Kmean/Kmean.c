@@ -36,7 +36,7 @@ void calculerClusters(float *data,int *data2, int *ids, int n, const char *attri
             float Disance_cluster1 = CalculeDistanceCluster(cluster1, data[i]);
             float Disance_cluster2 = CalculeDistanceCluster(cluster2, data[i]);
 
-            if (Disance_cluster1 < Disance_cluster2) {
+            if (Disance_cluster1 <= Disance_cluster2) {
                 Somme_cluster1 = Somme_cluster1 + data[i];
                 conteur_cluster1++;
                 cluster1_ids[conteur_cluster1] = ids[i];
