@@ -1,9 +1,9 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include "main.h"
+#include <ctype.h>
 
 int compterLignes(FILE *fichier) {
     int car, NbLigne = 1;
@@ -30,6 +30,15 @@ void chargerPatients(FILE *file, stpatients *patients) {
         while (token != NULL && token_index < MAX_FIELDS) {
             tokens[token_index++] = token;
             token = strtok(NULL, "$");
+        }
+
+        // Nettoyer les espaces de chaque token
+        for (int i = 0; i < token_index; i++) {
+            char *start = tokens[i];
+            while (isspace((unsigned char)*start)) start++; // Supprimer les espaces en début
+            char *end = start + strlen(start) - 1;
+            while (end > start && isspace((unsigned char)*end)) *end-- = '\0'; // Supprimer les espaces en fin
+            tokens[i] = start;
         }
 
         // Assigner les valeurs aux champs de la structure
