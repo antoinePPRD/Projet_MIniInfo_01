@@ -162,13 +162,9 @@ void effectuerComparaison(int choix, int *cluster1_ids_pa, int nb_cluster1_pa, i
 }
 
 int main() {
+    // Fonction rodom 
     srand(time(NULL));
-
     FILE *lifestyle = fopen("DATA/lifestyle.pengu", "r");
-    if (!lifestyle) {
-        perror("Erreur lors de l'ouverture du fichier lifestyle");
-        return 1;
-    }
 
     int NombreDeLignes_lifestyle = compterLignes(lifestyle);
     stlifestyle lifestyle_data;
