@@ -7,7 +7,7 @@ int CalculeDistanceCluster(float cluster, float data) {
     return fabs(cluster - data);
 }
 
-void calculerClusters(float *data, int *ids, int n, const char *attribut, int *cluster1_ids, int *cluster2_ids, int *nb_cluster1, int *nb_cluster2) {
+void calculerClusters(float *data,int *data2, int *ids, int n, const char *attribut, int *cluster1_ids, int *cluster2_ids, int *nb_cluster1, int *nb_cluster2) {
     int r1, r2;
     r1 = rand() % n;
     r2 = rand() % n;
@@ -20,10 +20,12 @@ void calculerClusters(float *data, int *ids, int n, const char *attribut, int *c
     float Moyen_cluster2_0 = 0, Moyen_cluster2_1 = cluster2;
 
     int conteur_cluster1 = 0, conteur_cluster2 = 0;
+    int conteur_Patient_Risque_cluster1 = 0 , conteur_Patient_Risque_cluster2 = 0 ;
     float Somme_cluster1 = 0, Somme_cluster2 = 0;
 
     int max_iterations = 100;
     int iteration = 0;
+
 
     while (iteration < max_iterations && ((fabs(Moyen_cluster1_1 - Moyen_cluster1_0) > 0.01) || (fabs(Moyen_cluster2_1 - Moyen_cluster2_0) > 0.01))) {
         
@@ -38,11 +40,13 @@ void calculerClusters(float *data, int *ids, int n, const char *attribut, int *c
                 Somme_cluster1 = Somme_cluster1 + data[i];
                 conteur_cluster1++;
                 cluster1_ids[conteur_cluster1] = ids[i];
+                conteur_Patient_Risque_cluster1 = conteur_Patient_Risque_cluster1 + data2[i];
             } 
             else {
                 Somme_cluster2 = Somme_cluster2 + data[i];
                 conteur_cluster2++;
                 cluster2_ids[conteur_cluster2] = ids[i];
+                conteur_Patient_Risque_cluster2 = conteur_Patient_Risque_cluster2 + data2[i];
             }
         }
 
@@ -63,7 +67,11 @@ void calculerClusters(float *data, int *ids, int n, const char *attribut, int *c
     *nb_cluster1 = conteur_cluster1;
     *nb_cluster2 = conteur_cluster2;
 
+    int pourcentage_Patient_Risque_cluster1 = (conteur_Patient_Risque_cluster1 / conteur_cluster1)*100;
+    int pourcentage_Patient_Risque_cluster2 = (conteur_Patient_Risque_cluster2 / conteur_cluster2)*100;
+
     printf("Final (%s): Cluster 1 = %f, Nombre d'éléments = %d\n", attribut, cluster1, conteur_cluster1);
+    printf("Le nombre de patient a risque dans le cluster 1 est de : %d ce qui fait %d pourcent ", conteur_Patient_Risque_cluster1, pourcentage_Patient_Risque_cluster1 );
     printf("Final (%s): Cluster 2 = %f, Nombre d'éléments = %d\n", attribut, cluster2, conteur_cluster2);
 
     printf("-------------------------------------------------------\n");
@@ -163,6 +171,7 @@ void effectuerComparaison(int choix, int *cluster1_ids_pa, int nb_cluster1_pa, i
 int main() {
     // Fonction rodom 
     srand(time(NULL));
+
     // Ouverture des fishier 
     FILE *lifestyle = fopen("DATA/lifestyle.pengu", "r");
     FILE *patients = fopen("DATA/patients.pengu", "r");
@@ -170,11 +179,13 @@ int main() {
     // calcul le nombre de ligne lifestyle
     int NombreDeLignes_lifestyle = compterLignes(lifestyle);
     
+    // Mise en mémoire des informations contenues dans les fichiers dans une structure appropriée  
     stlifestyle lifestyle_data;
     chargerLifestyle(lifestyle, &lifestyle_data);
     stpatients patient_data;
     chargerPatients(patients, &patient_data);
 
+    // Fermeture des fishier
     fclose(lifestyle);
     fclose(patients);
 
@@ -191,10 +202,10 @@ int main() {
     int nb_cluster1_sq, nb_cluster2_sq;
 
     // Calculer les clusters pour chaque attribut
-    calculerClusters(lifestyle_data.physical_activity, lifestyle_data.id, NombreDeLignes_lifestyle, "Physical Activity", cluster1_ids_pa, cluster2_ids_pa, &nb_cluster1_pa, &nb_cluster2_pa);
-    calculerClusters(lifestyle_data.alcohol_consumption, lifestyle_data.id, NombreDeLignes_lifestyle, "Alcohol Consumption", cluster1_ids_ac, cluster2_ids_ac, &nb_cluster1_ac, &nb_cluster2_ac);
-    calculerClusters(lifestyle_data.caffeine_consumption, lifestyle_data.id, NombreDeLignes_lifestyle, "Caffeine Consumption", cluster1_ids_cc, cluster2_ids_cc, &nb_cluster1_cc, &nb_cluster2_cc);
-    calculerClusters(lifestyle_data.sleep_quality, lifestyle_data.id, NombreDeLignes_lifestyle, "Sleep Quality", cluster1_ids_sq, cluster2_ids_sq, &nb_cluster1_sq, &nb_cluster2_sq);
+    calculerClusters(lifestyle_data.physical_activity, patient_data.condition, lifestyle_data.id, NombreDeLignes_lifestyle, "Physical Activity", cluster1_ids_pa, cluster2_ids_pa, &nb_cluster1_pa, &nb_cluster2_pa);
+    calculerClusters(lifestyle_data.alcohol_consumption, patient_data.condition, lifestyle_data.id, NombreDeLignes_lifestyle, "Alcohol Consumption", cluster1_ids_ac, cluster2_ids_ac, &nb_cluster1_ac, &nb_cluster2_ac);
+    calculerClusters(lifestyle_data.caffeine_consumption, patient_data.condition, lifestyle_data.id, NombreDeLignes_lifestyle, "Caffeine Consumption", cluster1_ids_cc, cluster2_ids_cc, &nb_cluster1_cc, &nb_cluster2_cc);
+    calculerClusters(lifestyle_data.sleep_quality, patient_data.condition, lifestyle_data.id, NombreDeLignes_lifestyle, "Sleep Quality", cluster1_ids_sq, cluster2_ids_sq, &nb_cluster1_sq, &nb_cluster2_sq);
 
     int choix;
     do {
