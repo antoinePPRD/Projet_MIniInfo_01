@@ -19,9 +19,11 @@ int compterLignes(FILE *fichier) {
 void chargerPatients(FILE *file, stpatients *patients) {
     char line[MAX_LINE];
     int index = 0;
+
     while (fgets(line, sizeof(line), file) != NULL) {
-        line[strcspn(line, "\n")] = '\0';
+        line[strcspn(line, "\n")] = '\0'; // Supprimer le saut de ligne
         char *token = strtok(line, "$");
+
         if (token) patients->patient_id[index] = atoi(token);
         token = strtok(NULL, "$");
         if (token) patients->record_id[index] = atoi(token);
@@ -40,10 +42,19 @@ void chargerPatients(FILE *file, stpatients *patients) {
         token = strtok(NULL, "$");
         if (token) patients->heart_rate[index] = atof(token);
         token = strtok(NULL, "$");
-        if (token) patients->condition[index] = (strcmp(token, "True") == 0) ? 1 : 0;
+        if (token) {
+            // Vérifie si le champ "condition" est "True" ou "False"
+            if (strcmp(token, "True") == 0) {
+                patients->condition[index] = 1; // À risque
+            } else if (strcmp(token, "False") == 0) {
+                patients->condition[index] = 0; // Non à risque
+            } else {
+                printf("Erreur : Valeur inattendue pour 'condition' : %s\n", token);
+            }
+        }
         index++;
     }
-    rewind(file);
+    rewind(file); 
 }
 
 void chargerLifestyle(FILE *file, stlifestyle *lifestyle) {
